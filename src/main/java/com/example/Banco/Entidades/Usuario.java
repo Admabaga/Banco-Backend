@@ -1,38 +1,39 @@
 package com.example.Banco.Entidades;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Usuario {
     @Id
-    @GeneratedValue
-    private Long id;
+    private Integer cedula;
     private String nombre;
     private String apellido;
-    private Integer cedula;
     private String correo;
     private String password;
+
+    @OneToOne
+    private Cuenta cuenta;
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String nombre, String apellido, Integer cedula, String correo, String password) {
-        this.id = id;
+    public Usuario(Integer cedula, String nombre, String apellido, String correo, String password, Cuenta cuenta) {
+        this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.cedula = cedula;
         this.correo = correo;
         this.password = password;
+        this.cuenta = cuenta;
     }
 
-    public Long getId() {
-        return id;
+    public Integer getCedula() {
+        return cedula;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCedula(Integer cedula) {
+        this.cedula = cedula;
     }
 
     public String getNombre() {
@@ -51,14 +52,6 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public Integer getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(Integer cedula) {
-        this.cedula = cedula;
-    }
-
     public String getCorreo() {
         return correo;
     }
@@ -75,15 +68,23 @@ public class Usuario {
         this.password = password;
     }
 
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
-                "id=" + id +
+                "cedula=" + cedula +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
-                ", cedula=" + cedula +
                 ", correo='" + correo + '\'' +
                 ", password='" + password + '\'' +
+                ", cuenta=" + cuenta +
                 '}';
     }
 }

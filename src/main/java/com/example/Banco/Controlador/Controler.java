@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173")
 public class Controler {
     ServicioUsuario servicioUsuario;
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public Controler(ServicioUsuario servicioUsuario) {
         this.servicioUsuario = servicioUsuario;
@@ -19,13 +18,8 @@ public class Controler {
 
 @PostMapping("/usuarios")
 public ResponseEntity<?> guardarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
-    try {
         UsuarioDTO resultado = servicioUsuario.registrarUsuario(usuarioDTO);
         return ResponseEntity.ok(resultado);
-    } catch (Exception e) {
-        logger.error("Error al registrar usuario", e);
-        return ResponseEntity.badRequest().body("Error al registrar el usuario");
     }
 }
 
-}
