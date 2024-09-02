@@ -3,6 +3,9 @@ package com.example.Banco.Entidades;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Cuenta {
@@ -12,6 +15,9 @@ public class Cuenta {
     private Boolean estaActiva;
     private Double saldo;
     private Integer numeroCuenta;
+
+    @OneToMany(mappedBy = "cuenta")
+    private List<Movimiento> movimiento;
 
     public Cuenta() {
     }
@@ -63,5 +69,20 @@ public class Cuenta {
                 ", saldo=" + saldo +
                 ", numeroCuento=" + numeroCuenta +
                 '}';
+    }
+
+    public Double retiro(Double valor){
+        Double saldoActualizado;
+        if (this.saldo < valor){
+            throw new RuntimeException("Saldo insuficiente para retirar");
+        }
+        saldoActualizado = this.getSaldo() - valor;
+        return saldoActualizado;
+    }
+
+    public Double consignacion(Double valor){
+        Double saldoActualizado;
+        saldoActualizado = this.getSaldo() + valor;
+        return saldoActualizado;
     }
 }

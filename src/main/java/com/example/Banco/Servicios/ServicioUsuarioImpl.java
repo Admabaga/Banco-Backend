@@ -1,6 +1,7 @@
 package com.example.Banco.Servicios;
 
 import com.example.Banco.Converter.UsuarioConverter;
+import com.example.Banco.Dto.LoginDTO;
 import com.example.Banco.Dto.UsuarioDTO;
 import com.example.Banco.Entidades.Cuenta;
 import com.example.Banco.Entidades.Usuario;
@@ -32,6 +33,17 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         return UsuarioConverter.entidadADto(usuario);
     }
 
+    @Override
+    public Boolean inicioSesion(LoginDTO loginDTO) {
+        List<Usuario> usuarios = repositorioUsuario.findAll();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getCorreo().equalsIgnoreCase(loginDTO.getUsuario()) && usuario.getPassword().equalsIgnoreCase(loginDTO.getPassword())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void validaciones(Usuario usuario){
         List<String> correos = repositorioUsuario.userEmails();
         List<Integer> cedulas = repositorioUsuario.userIdentification();
@@ -51,7 +63,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         }else {
             cuenta.setNumeroCuenta(1000000000);
         }
-        cuenta.setSaldo(0.0);
+        cuenta.setSaldo(200000.0);
         cuenta.setEstaActiva(true);
         return cuenta;
     }

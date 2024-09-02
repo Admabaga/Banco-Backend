@@ -1,5 +1,6 @@
 package com.example.Banco.Controlador;
 
+import com.example.Banco.Dto.LoginDTO;
 import com.example.Banco.Dto.UsuarioDTO;
 import com.example.Banco.Servicios.ServicioUsuario;
 import org.slf4j.Logger;
@@ -16,9 +17,14 @@ public class Controler {
         this.servicioUsuario = servicioUsuario;
     }
 
-@PostMapping("/usuarios")
-public ResponseEntity<?> guardarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
-        UsuarioDTO resultado = servicioUsuario.registrarUsuario(usuarioDTO);
+    @PostMapping("/usuarios")
+    public ResponseEntity<?> guardarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+            UsuarioDTO resultado = servicioUsuario.registrarUsuario(usuarioDTO);
+            return ResponseEntity.ok(resultado);
+    }
+    @PostMapping("/usuarios/log")
+    public ResponseEntity<?> iniciarSesion(@RequestBody LoginDTO loginDTO) {
+        Boolean resultado = servicioUsuario.inicioSesion(loginDTO);
         return ResponseEntity.ok(resultado);
     }
 }
