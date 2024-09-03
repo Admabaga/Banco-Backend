@@ -2,7 +2,6 @@ package com.example.Banco.Controlador;
 
 import com.example.Banco.Dto.ServiciosDTO;
 import com.example.Banco.Servicios.ServicioConsignacion;
-import com.example.Banco.Servicios.ServicioRetiro;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,5 +1,6 @@
 package com.example.Banco.Entidades;
 
+import com.example.Banco.Excepciones.SaldoInsuficienteExcepcion;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -74,7 +75,7 @@ public class Cuenta {
     public Double retiro(Double valor){
         Double saldoActualizado;
         if (this.saldo < valor){
-            throw new RuntimeException("Saldo insuficiente para retirar");
+            throw new SaldoInsuficienteExcepcion("Saldo insuficiente para retirar");
         }
         saldoActualizado = this.getSaldo() - valor;
         return saldoActualizado;

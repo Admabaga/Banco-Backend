@@ -5,6 +5,8 @@ import com.example.Banco.Dto.LoginDTO;
 import com.example.Banco.Dto.UsuarioDTO;
 import com.example.Banco.Entidades.Cuenta;
 import com.example.Banco.Entidades.Usuario;
+import com.example.Banco.Excepciones.CedulaExistenteExcepcion;
+import com.example.Banco.Excepciones.CorreoExistenteExcepcion;
 import com.example.Banco.Repositorios.RepositorioCuenta;
 import com.example.Banco.Repositorios.RepositorioUsuario;
 import org.springframework.stereotype.Service;
@@ -48,10 +50,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         List<String> correos = repositorioUsuario.userEmails();
         List<Integer> cedulas = repositorioUsuario.userIdentification();
         if (correos.contains(usuario.getCorreo())) {
-            throw new RuntimeException(String.format("El correo %s ya ha sido registrado", usuario.getCorreo()));
+            throw new CorreoExistenteExcepcion(String.format("El correo %s ya ha sido registrado", usuario.getCorreo()));
         }
         if (cedulas.contains(usuario.getCedula())) {
-            throw new RuntimeException(String.format("La cedula %s ya ha sido registrada", usuario.getCedula()));
+            throw new CedulaExistenteExcepcion(String.format("La cedula %s ya ha sido registrada", usuario.getCedula()));
         }
     }
 

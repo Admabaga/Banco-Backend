@@ -5,8 +5,6 @@ import com.example.Banco.Dto.MovimientoDTO;
 import com.example.Banco.Entidades.Movimiento;
 import com.example.Banco.Repositorios.RepositorioMovimiento;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
