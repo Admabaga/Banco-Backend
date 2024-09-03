@@ -6,6 +6,7 @@ import com.example.Banco.Entidades.Movimiento;
 import com.example.Banco.Repositorios.RepositorioMovimiento;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,9 +20,9 @@ public class ServicioMovimientosImpl implements ServicioMovimiento{
 
     @Override
     public List<MovimientoDTO> movimientos(Long cuentaId) {
-//        return movimientos.stream()
-//                .map(MovimientoConverter::entidadADto)
-//                .collect(Collectors.toList());
-        return null;
+        List<Movimiento> movimientos = repositorioMovimiento.movimientos(cuentaId);
+        return movimientos.stream()
+                .map(MovimientoConverter::entidadADto)
+                .collect(Collectors.toList());
     }
 }
