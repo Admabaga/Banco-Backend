@@ -67,7 +67,7 @@ public class Cuenta {
                 "id=" + id +
                 ", estado=" + estaActiva +
                 ", saldo=" + saldo +
-                ", numeroCuento=" + numeroCuenta +
+                ", numeroCuenta=" + numeroCuenta +
                 '}';
     }
 
