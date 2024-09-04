@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ConsignacionControler {
+public class ConsignacionController {
     ServicioConsignacion servicioConsignacion;
 
-    public ConsignacionControler(ServicioConsignacion servicioConsignacion) {
+    public ConsignacionController(ServicioConsignacion servicioConsignacion) {
         this.servicioConsignacion = servicioConsignacion;
     }
     @PostMapping("/consignaciones/{cuentaId}")

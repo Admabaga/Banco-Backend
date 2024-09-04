@@ -3,8 +3,10 @@ package com.example.Banco.Entidades;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario {
     @Id
     private Integer cedula;

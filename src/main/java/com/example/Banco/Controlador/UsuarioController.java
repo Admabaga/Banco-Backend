@@ -7,11 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
-public class Controler {
+public class UsuarioController {
     ServicioUsuario servicioUsuario;
 
-    public Controler(ServicioUsuario servicioUsuario) {
+    public UsuarioController(ServicioUsuario servicioUsuario) {
         this.servicioUsuario = servicioUsuario;
     }
 

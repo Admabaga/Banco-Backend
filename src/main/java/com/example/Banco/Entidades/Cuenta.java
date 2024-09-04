@@ -1,14 +1,12 @@
 package com.example.Banco.Entidades;
 
 import com.example.Banco.Excepciones.SaldoInsuficienteExcepcion;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
+@Table(name = "cuenta")
 public class Cuenta {
     @Id
     @GeneratedValue

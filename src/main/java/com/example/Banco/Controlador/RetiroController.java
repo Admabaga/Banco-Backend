@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RetiroControler {
+public class RetiroController {
     ServicioRetiro servicioRetiro;
 
-    public RetiroControler(ServicioRetiro servicioRetiro) {
+    public RetiroController(ServicioRetiro servicioRetiro) {
         this.servicioRetiro = servicioRetiro;
     }
     @PostMapping("/retiros/{cuentaId}")
