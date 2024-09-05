@@ -21,7 +21,7 @@ public class UsuarioController {
     }
     @PostMapping("/usuarios/log")
     public ResponseEntity<?> iniciarSesion(@RequestBody LoginDTO loginDTO) {
-        Boolean resultado = servicioUsuario.inicioSesion(loginDTO);
+        LoginDTO resultado = servicioUsuario.inicioSesion(loginDTO);
         return ResponseEntity.ok(resultado);
     }
 }

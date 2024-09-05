@@ -36,14 +36,20 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
     }
 
     @Override
-    public Boolean inicioSesion(LoginDTO loginDTO) {
+    public LoginDTO inicioSesion(LoginDTO loginDTO) {
         List<Usuario> usuarios = repositorioUsuario.findAll();
         for (Usuario usuario : usuarios) {
             if (usuario.getCorreo().equalsIgnoreCase(loginDTO.getUsuario()) && usuario.getPassword().equalsIgnoreCase(loginDTO.getPassword())) {
-                return true;
+                Cuenta cuenta = usuario.getCuenta();
+                loginDTO.setNumeroCuenta(cuenta.getNumeroCuenta());
+                loginDTO.setEstado(cuenta.getEstaActiva());
+                loginDTO.setSaldo(cuenta.getSaldo());
+                loginDTO.setLoggIn(true);
+                return loginDTO;
             }
         }
-        return false;
+        loginDTO.setLoggIn(false);
+        return loginDTO;
     }
 
     public void validaciones(Usuario usuario){

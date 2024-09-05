@@ -25,6 +25,12 @@ public class ServicioTransferenciaImpl implements ServicioTransferencia{
         Optional<Cuenta> cuentaOptional = repositorioCuenta.findById(cuentaId);
         Cuenta cuentaReceptora = repositorioCuenta.cuentaReceptora(serviciosDTO.getCuentaReceptora());
         Cuenta cuentaEmisora = cuentaOptional.get();
+        if (cuentaReceptora==null){
+            throw  new RuntimeException(String.format("El numero de cuenta %s no es valido.", serviciosDTO.getCuentaReceptora()));
+        }
+        if (cuentaReceptora.equals(cuentaEmisora)){
+            throw new RuntimeException("No puedes trasnferirte dinero desde tu propia cuenta.");
+        }
         Movimiento movimientoEmisora = new Movimiento();
         Movimiento movimientoCuentaReceptora = new Movimiento();
         cuentaEmisora.setSaldo(cuentaEmisora.retiro(serviciosDTO.getValor()));
@@ -44,4 +50,5 @@ public class ServicioTransferenciaImpl implements ServicioTransferencia{
         repositorioMovimiento.save(movimientoCuentaReceptora);
         return serviciosDTO;
     }
+
 }

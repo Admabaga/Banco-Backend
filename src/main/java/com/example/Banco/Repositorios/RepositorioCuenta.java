@@ -13,4 +13,7 @@ public interface RepositorioCuenta extends JpaRepository<Cuenta, Long > {
     @Query("SELECT c FROM Cuenta c WHERE c.numeroCuenta = :numeroCuenta")
     Cuenta cuentaReceptora(@Param("numeroCuenta") Integer id);
 
+    @Query("SELECT c FROM Cuenta c WHERE c.id = :id")
+    Cuenta cuentaLogeada(@Param("id") Integer id);
+
 }

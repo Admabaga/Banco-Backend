@@ -73,7 +73,7 @@ public class Cuenta {
     public Double retiro(Double valor){
         Double saldoActualizado;
         if (this.saldo < valor){
-            throw new SaldoInsuficienteExcepcion("Saldo insuficiente para retirar");
+            throw new SaldoInsuficienteExcepcion("Saldo insuficiente para retirar!");
         }
         saldoActualizado = this.getSaldo() - valor;
         return saldoActualizado;
