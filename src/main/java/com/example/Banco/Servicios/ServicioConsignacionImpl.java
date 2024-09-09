@@ -1,5 +1,6 @@
 package com.example.Banco.Servicios;
 
+import com.example.Banco.Converter.ConversorDatos;
 import com.example.Banco.Converter.LocalTimeZoneConverter;
 import com.example.Banco.Dto.ServiciosDTO;
 import com.example.Banco.Entidades.Cuenta;
@@ -23,14 +24,17 @@ public class ServicioConsignacionImpl implements ServicioConsignacion {
 
     @Override
     public ServiciosDTO consignacion(ServiciosDTO serviciosDTO, Long cuentaId) {
+        if (serviciosDTO.getValor()==null || String.valueOf(serviciosDTO.getValor()).isEmpty()){
+            throw new RuntimeException("Ingresa un valor para recargar.");
+        }
         Optional<Cuenta> cuentaOptional = repositorioCuenta.findById(cuentaId);
         Cuenta cuenta = cuentaOptional.get();
         Movimiento movimiento= new Movimiento();
         cuenta.setSaldo(cuenta.consignacion(serviciosDTO.getValor()));
-        movimiento.setTipoMovimiento("Consginacion");
+        movimiento.setTipoMovimiento("Consignacion");
         movimiento.setCuenta(cuenta);
         movimiento.setFecha(LocalTimeZoneConverter.convertirAHoraLocal(LocalDateTime.now()));
-        movimiento.setValor(String.format("+ ")+serviciosDTO.getValor());
+        movimiento.setValor("+ "+ConversorDatos.numeros(serviciosDTO.getValor()));
         serviciosDTO.setSaldo(cuenta.getSaldo());
         repositorioCuenta.save(cuenta);
         repositorioMovimiento.save(movimiento);

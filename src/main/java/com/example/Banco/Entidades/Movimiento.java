@@ -14,7 +14,7 @@ public class Movimiento {
     private String tipoMovimiento;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime fecha;
+    private String fecha;
     private String valor;
 
     @ManyToOne
@@ -23,7 +23,7 @@ public class Movimiento {
     public Movimiento() {
     }
 
-    public Movimiento(Long id, String tipoMovimiento, LocalDateTime fecha, String valor, Cuenta cuenta) {
+    public Movimiento(Long id, String tipoMovimiento, String fecha, String valor, Cuenta cuenta) {
         this.id = id;
         this.tipoMovimiento = tipoMovimiento;
         this.fecha = fecha;
@@ -47,11 +47,11 @@ public class Movimiento {
         this.tipoMovimiento = tipoMovimiento;
     }
 
-    public LocalDateTime getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

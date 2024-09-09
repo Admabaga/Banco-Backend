@@ -8,6 +8,6 @@ import java.time.LocalDateTime;
 public class MovimientoDTO {
     private Long id;
     private String tipoMovimiento;
-    private LocalDateTime fecha;
+    private String fecha;
     private String valor;
 }

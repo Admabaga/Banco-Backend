@@ -7,7 +7,8 @@ public class LoginDTO {
     private String usuario;
     private String password;
     private Boolean loggIn;
-    private Double saldo;
+    private String saldo;
     private Integer numeroCuenta;
     private Boolean estado;
+    private Long idCuenta;
 }

@@ -1,5 +1,6 @@
 package com.example.Banco.Servicios;
 
+import com.example.Banco.Converter.ConversorDatos;
 import com.example.Banco.Converter.UsuarioConverter;
 import com.example.Banco.Dto.LoginDTO;
 import com.example.Banco.Dto.UsuarioDTO;
@@ -11,6 +12,7 @@ import com.example.Banco.Repositorios.RepositorioCuenta;
 import com.example.Banco.Repositorios.RepositorioUsuario;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Service
@@ -37,19 +39,25 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 
     @Override
     public LoginDTO inicioSesion(LoginDTO loginDTO) {
+        if (loginDTO.getUsuario()==null || String.valueOf(loginDTO.getUsuario()).isEmpty()){
+            throw new RuntimeException("Ingresa un usuario.");
+        }
+        if (loginDTO.getPassword()==null || String.valueOf(loginDTO.getPassword()).isEmpty()){
+            throw new RuntimeException("Ingresa una contraseña.");
+        }
         List<Usuario> usuarios = repositorioUsuario.findAll();
         for (Usuario usuario : usuarios) {
             if (usuario.getCorreo().equalsIgnoreCase(loginDTO.getUsuario()) && usuario.getPassword().equalsIgnoreCase(loginDTO.getPassword())) {
                 Cuenta cuenta = usuario.getCuenta();
                 loginDTO.setNumeroCuenta(cuenta.getNumeroCuenta());
                 loginDTO.setEstado(cuenta.getEstaActiva());
-                loginDTO.setSaldo(cuenta.getSaldo());
+                loginDTO.setSaldo(ConversorDatos.numeros(cuenta.getSaldo()));
                 loginDTO.setLoggIn(true);
+                loginDTO.setIdCuenta(cuenta.getId());
                 return loginDTO;
             }
         }
-        loginDTO.setLoggIn(false);
-        return loginDTO;
+        throw new RuntimeException("Usuario y/o contraseña incorrectos.");
     }
 
     public void validaciones(Usuario usuario){
@@ -69,7 +77,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
             Integer cuentaNueva = valorMaximo + 1;
             cuenta.setNumeroCuenta(cuentaNueva);
         }else {
-            cuenta.setNumeroCuenta(1000000000);
+            cuenta.setNumeroCuenta(2000000000);
         }
         cuenta.setSaldo(200000.0);
         cuenta.setEstaActiva(true);

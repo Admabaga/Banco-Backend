@@ -1,5 +1,7 @@
 package com.example.Banco.Servicios;
 
+import com.example.Banco.Converter.ConversorDatos;
+import com.example.Banco.Converter.LocalTimeZoneConverter;
 import com.example.Banco.Dto.ServiciosDTO;
 import com.example.Banco.Entidades.Cuenta;
 import com.example.Banco.Entidades.Movimiento;
@@ -22,6 +24,12 @@ public class ServicioTransferenciaImpl implements ServicioTransferencia{
 
     @Override
     public ServiciosDTO transferir(ServiciosDTO serviciosDTO, Long cuentaId) {
+        if (serviciosDTO.getValor()==null || String.valueOf(serviciosDTO.getValor()).isEmpty()){
+            throw new RuntimeException("Ingresa un valor para transferir.");
+        }
+        if (serviciosDTO.getCuentaReceptora()==null || String.valueOf(serviciosDTO.getCuentaReceptora()).isEmpty()){
+            throw new RuntimeException("Ingresa un numero de cuentax para transferir.");
+        }
         Optional<Cuenta> cuentaOptional = repositorioCuenta.findById(cuentaId);
         Cuenta cuentaReceptora = repositorioCuenta.cuentaReceptora(serviciosDTO.getCuentaReceptora());
         Cuenta cuentaEmisora = cuentaOptional.get();
@@ -35,14 +43,14 @@ public class ServicioTransferenciaImpl implements ServicioTransferencia{
         Movimiento movimientoCuentaReceptora = new Movimiento();
         cuentaEmisora.setSaldo(cuentaEmisora.retiro(serviciosDTO.getValor()));
         cuentaReceptora.setSaldo(cuentaReceptora.consignacion(serviciosDTO.getValor()));
-        movimientoEmisora.setValor(String.format("- "+serviciosDTO.getValor()));
+        movimientoEmisora.setValor("- "+ ConversorDatos.numeros(serviciosDTO.getValor()));
         movimientoEmisora.setCuenta(cuentaEmisora);
-        movimientoEmisora.setFecha(LocalDateTime.now());
+        movimientoEmisora.setFecha(LocalTimeZoneConverter.convertirAHoraLocal(LocalDateTime.now()));
         movimientoEmisora.setTipoMovimiento("Transferencia");
-        movimientoCuentaReceptora.setValor(String.format("+ "+serviciosDTO.getValor()));
+        movimientoCuentaReceptora.setValor("+ "+ConversorDatos.numeros(serviciosDTO.getValor()));
         movimientoCuentaReceptora.setTipoMovimiento("Transferencia");
         movimientoCuentaReceptora.setCuenta(cuentaReceptora);
-        movimientoCuentaReceptora.setFecha(LocalDateTime.now());
+        movimientoCuentaReceptora.setFecha(LocalTimeZoneConverter.convertirAHoraLocal(LocalDateTime.now()));
         serviciosDTO.setSaldo(cuentaEmisora.getSaldo());
         repositorioCuenta.save(cuentaEmisora);
         repositorioCuenta.save(cuentaReceptora);
