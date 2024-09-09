@@ -12,7 +12,6 @@ import com.example.Banco.Repositorios.RepositorioCuenta;
 import com.example.Banco.Repositorios.RepositorioUsuario;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 @Service
@@ -69,6 +68,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         if (cedulas.contains(usuario.getCedula())) {
             throw new CedulaExistenteExcepcion(String.format("La cedula %s ya ha sido registrada", usuario.getCedula()));
         }
+        validacionUsuario(usuario);
     }
 
     public Cuenta crearCuenta(Cuenta cuenta){
@@ -82,6 +82,25 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         cuenta.setSaldo(200000.0);
         cuenta.setEstaActiva(true);
         return cuenta;
+    }
+
+    public void validacionUsuario(Usuario usuario){
+        if (usuario.getCorreo()== null || usuario.getCorreo()== "" ) {
+            throw new RuntimeException("El campo correo debe estar diligenciado.");
+        }
+        if (usuario.getPassword()== null || usuario.getPassword()== "" ) {
+            throw new RuntimeException("El campo contraseña debe estar diligenciado.");
+        }
+        if (usuario.getNombre()== null || usuario.getNombre()== "" ) {
+            throw new RuntimeException("El campo nombre debe estar diligenciado.");
+        }
+        if (usuario.getApellido()== null || usuario.getApellido()== "" ) {
+            throw new RuntimeException("El campo apellido debe estar diligenciado.");
+        }
+        if (usuario.getCedula()== null || String.valueOf(usuario.getCedula())== "" ) {
+            throw new RuntimeException("El campo cedula debe estar diligenciado.");
+        }
+
     }
 
 }
