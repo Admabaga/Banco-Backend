@@ -6,30 +6,20 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
 @Configuration
-public class ConfigCors {
+public class ConfigCors implements WebMvcConfigurer {
 
-    @Bean
-    public CorsWebFilter corsWebFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-
-        // Permitir todas las origenes
-        config.setAllowedOrigins(Arrays.asList("*"));
-
-        // Permitir todos los métodos HTTP
-        config.setAllowedMethods(Arrays.asList("*"));
-
-        // Permitir todas las cabeceras
-        config.setAllowedHeaders(Arrays.asList("*"));
-
-        // Permitir credenciales
-        config.setAllowCredentials(true);
-
-        source.registerCorsConfiguration("/**", config);
-        return new CorsWebFilter((CorsConfigurationSource) source);
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }
