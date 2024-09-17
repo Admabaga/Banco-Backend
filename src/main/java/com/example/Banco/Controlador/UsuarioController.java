@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "https://banco-front.onrender.com", allowedHeaders = "*", maxAge = 3600)
 public class UsuarioController {
     ServicioUsuario servicioUsuario;
 
