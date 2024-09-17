@@ -10,9 +10,11 @@ public class ConfigCors implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://banco-front.onrender.com/") // Reemplaza por tu origen real
+                .allowedOrigins("https://banco-front.onrender.com")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("Content-Type", "Authorization")
                 .allowCredentials(true);
     }
 }
+
+
