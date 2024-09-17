@@ -1,6 +1,6 @@
 FROM openjdk:17-jdk-slim
-WORKDIR /app
+WORKDIR /Back-Banco
 COPY target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
 
 
