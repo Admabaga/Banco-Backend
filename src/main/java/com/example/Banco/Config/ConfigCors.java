@@ -1,20 +1,35 @@
 package com.example.Banco.Config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+
+import java.util.Arrays;
 
 @Configuration
-public class ConfigCors implements WebMvcConfigurer {
+public class ConfigCors {
 
+    @Bean
+    public CorsWebFilter corsWebFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
 
+        // Permitir todas las origenes
+        config.setAllowedOrigins(Arrays.asList("*"));
 
-        @Override
-        public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("/**")
-                    .allowedOrigins("https://banantioquiaapp.netlify.app") // Reemplaza por tu origen real
-                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                    .allowedHeaders("Content-Type", "Authorization")
-                    .allowCredentials(true);
-        }
+        // Permitir todos los métodos HTTP
+        config.setAllowedMethods(Arrays.asList("*"));
+
+        // Permitir todas las cabeceras
+        config.setAllowedHeaders(Arrays.asList("*"));
+
+        // Permitir credenciales
+        config.setAllowCredentials(true);
+
+        source.registerCorsConfiguration("/**", config);
+        return new CorsWebFilter((CorsConfigurationSource) source);
+    }
 }
