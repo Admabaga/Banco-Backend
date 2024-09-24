@@ -62,13 +62,14 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
     public void validaciones(Usuario usuario){
         List<String> correos = repositorioUsuario.userEmails();
         List<Integer> cedulas = repositorioUsuario.userIdentification();
+        validacionUsuario(usuario);
         if (correos.contains(usuario.getCorreo())) {
             throw new CorreoExistenteExcepcion(String.format("El correo %s ya ha sido registrado", usuario.getCorreo()));
         }
         if (cedulas.contains(usuario.getCedula())) {
             throw new CedulaExistenteExcepcion(String.format("La cedula %s ya ha sido registrada", usuario.getCedula()));
         }
-        validacionUsuario(usuario);
+
     }
 
     public Cuenta crearCuenta(Cuenta cuenta){
@@ -85,11 +86,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
     }
 
     public void validacionUsuario(Usuario usuario){
-        if (usuario.getCorreo()== null || usuario.getCorreo()== "" ) {
-            throw new RuntimeException("El campo correo debe estar diligenciado.");
-        }
-        if (usuario.getPassword()== null || usuario.getPassword()== "" ) {
-            throw new RuntimeException("El campo contraseña debe estar diligenciado.");
+        if (usuario.getCedula()== null || String.valueOf(usuario.getCedula())== "" ) {
+            throw new RuntimeException("El campo cedula debe estar diligenciado.");
         }
         if (usuario.getNombre()== null || usuario.getNombre()== "" ) {
             throw new RuntimeException("El campo nombre debe estar diligenciado.");
@@ -97,10 +95,12 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         if (usuario.getApellido()== null || usuario.getApellido()== "" ) {
             throw new RuntimeException("El campo apellido debe estar diligenciado.");
         }
-        if (usuario.getCedula()== null || String.valueOf(usuario.getCedula())== "" ) {
-            throw new RuntimeException("El campo cedula debe estar diligenciado.");
+        if (usuario.getCorreo()== null || usuario.getCorreo()== "" ) {
+            throw new RuntimeException("El campo correo debe estar diligenciado.");
         }
-
+        if (usuario.getPassword()== null || usuario.getPassword()== "" ) {
+            throw new RuntimeException("El campo contraseña debe estar diligenciado.");
+        }
     }
 
 }
