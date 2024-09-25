@@ -61,7 +61,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 
     public void validaciones(Usuario usuario){
         List<String> correos = repositorioUsuario.userEmails();
-        List<Integer> cedulas = repositorioUsuario.userIdentification();
+        List<Long> cedulas = repositorioUsuario.userIdentification();
         validacionUsuario(usuario);
         if (correos.contains(usuario.getCorreo())) {
             throw new CorreoExistenteExcepcion(String.format("El correo %s ya ha sido registrado", usuario.getCorreo()));

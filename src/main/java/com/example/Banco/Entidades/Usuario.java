@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Table(name = "usuario")
 public class Usuario {
     @Id
-    private Integer cedula;
+    private Long cedula;
     private String nombre;
     private String apellido;
     private String correo;
@@ -21,7 +21,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Integer cedula, String nombre, String apellido, String correo, String password, Cuenta cuenta) {
+    public Usuario(Long cedula, String nombre, String apellido, String correo, String password, Cuenta cuenta) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -30,11 +30,11 @@ public class Usuario {
         this.cuenta = cuenta;
     }
 
-    public Integer getCedula() {
+    public Long getCedula() {
         return cedula;
     }
 
-    public void setCedula(Integer cedula) {
+    public void setCedula(Long cedula) {
         this.cedula = cedula;
     }
 

@@ -13,7 +13,7 @@ public interface RepositorioUsuario extends JpaRepository<Usuario, Integer> {
     List<String> userEmails();
 
     @Query("SELECT u.cedula FROM Usuario u")
-    List<Integer> userIdentification();
+    List<Long> userIdentification();
 
 
 
