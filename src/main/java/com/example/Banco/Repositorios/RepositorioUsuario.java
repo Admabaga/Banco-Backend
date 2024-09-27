@@ -8,14 +8,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface RepositorioUsuario extends JpaRepository<Usuario, Integer> {
+public interface RepositorioUsuario extends JpaRepository<Usuario, Long> {
     @Query("SELECT u.correo FROM Usuario u")
     List<String> userEmails();
 
     @Query("SELECT u.cedula FROM Usuario u")
     List<Long> userIdentification();
-
-
-
 
 }
