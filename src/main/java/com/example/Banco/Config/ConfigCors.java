@@ -1,6 +1,5 @@
 package com.example.Banco.Config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -9,16 +8,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ConfigCors implements WebMvcConfigurer {
 
     @Override
-
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOriginPatterns("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .allowCredentials(true)
-                .exposedHeaders("Access-Control-Allow-Origin");
+                .allowCredentials(true);
     }
 }
+
 
 
 //
