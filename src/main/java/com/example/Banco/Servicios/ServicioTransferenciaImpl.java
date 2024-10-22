@@ -28,7 +28,7 @@ public class ServicioTransferenciaImpl implements ServicioTransferencia{
             throw new RuntimeException("Ingresa un valor para transferir.");
         }
         if (serviciosDTO.getCuentaReceptora()==null || String.valueOf(serviciosDTO.getCuentaReceptora()).isEmpty()){
-            throw new RuntimeException("Ingresa un numero de cuentax para transferir.");
+            throw new RuntimeException("Ingresa un numero de cuenta para transferir.");
         }
         Optional<Cuenta> cuentaOptional = repositorioCuenta.findById(cuentaId);
         Cuenta cuentaReceptora = repositorioCuenta.cuentaReceptora(serviciosDTO.getCuentaReceptora());
