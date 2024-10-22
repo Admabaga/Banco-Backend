@@ -53,6 +53,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
                 loginDTO.setSaldo(ConversorDatos.numeros(cuenta.getSaldo()));
                 loginDTO.setLoggIn(true);
                 loginDTO.setIdCuenta(cuenta.getId());
+                loginDTO.setPassword(null);
                 return loginDTO;
             }
         }
