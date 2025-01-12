@@ -6,7 +6,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "movimiento")
 public class Movimiento {
     @Id
     @GeneratedValue

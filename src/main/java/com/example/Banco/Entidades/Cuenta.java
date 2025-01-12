@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "cuenta")
 public class Cuenta {
     @Id
     @GeneratedValue
